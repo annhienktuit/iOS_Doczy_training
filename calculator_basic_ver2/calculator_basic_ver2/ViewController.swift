@@ -39,6 +39,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var btnNumber9: UIButton!
     @IBOutlet weak var btnComma: UIButton!    
     
+    // Layout được, func chạy tốt.
+    // Tuy nhiên :
+    // Tất cả các biến đều bắt đầu = chữ thường.
+    // Em xem laij có cần nhiều biến toàn cục vậy không ? Em có thể đọc thuật toán trong demo của bạn Ly. A thấy bên đó bạn viết rất ngắn gọn.
+    // Nếu e dùng nhiều biến toàn cục thì mai mốt lên proj lớn tính đóng gói sẽ bị giảm đi. Khi copy sang chỗ khác hay dùng sang chỗ khác thì cũng phải đưa cả biến toàn cục đi nữa....
+    
     var StringCalculationSign = ""
     var StringInput = ""
     var IntCountOfNumber = 0
@@ -67,6 +73,9 @@ class ViewController: UIViewController {
             return String(Float(StringResult)!.clean)
         }
     }
+    
+    // Tham số truyền vào cũng là biến và bắt đầu = chữ thường
+    // Hàm là 1 action để thực hiện 1 chức năng nên nó nên được viết là 1 động từ chứ ko phải là 1 danh từ
     
     func calculator(StringInput: String, StringCalculationSign: String){
         if (StringCalculationSign == ""){
@@ -106,12 +115,15 @@ class ViewController: UIViewController {
     
     
     //MARK: Action
+    //
     @IBAction func btnAC(_ sender: Any) {
         lblResult.text = "0"
         StringInput = ""
         StringCalculationSign = ""
         IntCountOfNumber = 0
     }
+    // Nên đươc viết là reverseBtnClicked .... áp dụng cho tát cả các hàm
+    
     
     @IBAction func btnReverse(_ sender: Any) {
         if (StringCalculationSign.isEmpty){
