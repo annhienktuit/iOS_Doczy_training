@@ -10,6 +10,11 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    // Cách đặt tên biến tường minh, đúng chuẩn
+    // UI đẹp, có khiếu design đây
+    
+    // Vẫn có biến đặt = chữ hoa đầu tiên .... Input
+    
     var firstNum = "0"
     var secondNum = ""
     var function = "" //de luu dang xai phep tinh nao
@@ -18,7 +23,7 @@ class ViewController: UIViewController {
     var clickTimes_decimal:Int = 0
     var clickTimes_plus:Int = 0 //bien dem so lan
     
-    @IBOutlet weak var calculatorDisplay: UILabel!
+    @IBOutlet weak var calculatorDisplay: UILabel! // label thì nên đặt tên là lblDisplay...
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,11 +31,14 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
+    // Biến nên gom về đầu tiên.... ko phải vừa code hàm vừa code biến... đưa nó lên trên hàm viewDidLoad
+    
     @IBOutlet weak var display: UILabel!
     
     //lam tron so
     
-    
+    // Hàm là thưc hiện 1 chức năng nên nó phải là đông từ, ko phải danh từ
+    // nên đặt nó là clearBtnClicked...
     @IBAction func btnClear(_ sender: Any)
     {
         firstNum = ""
@@ -97,23 +105,37 @@ class ViewController: UIViewController {
         }
         
     }
-    
-    @IBAction func btnPlus(_ sender: Any)
-    {
-       if clickTimes_plus < 1
-        {
-        function = "+"
-        firstNum = Input
-        Input = ""
-        clickTimes_plus += 1
+    // Thụt vào thụt ra ko gọn gàng...chỗ if vs else.
+
+    //chú ý bên swift thì dấu mở ngoặc { bắt đầu ở cuối dòng...ko phải xuống dòng mới viết dấu mở ngoặc....
+//    @IBAction func btnPlus(_ sender: Any) {
+//
+//    }
+    @IBAction func btnPlus(_ sender: Any){
+        if clickTimes_plus < 1{
+            function = "+"
+            firstNum = Input
+            Input = ""
+            clickTimes_plus += 1
+        }else if clickTimes_plus >= 1 {
+            function = "+"
+            firstNum = String(result)
+            Input = ""
         }
-        else if clickTimes_plus >= 1
-       {
-        function = "+"
-        firstNum = String(result)
-        Input = ""
-        
-        }
+//       if clickTimes_plus < 1
+//        {
+//        function = "+"
+//        firstNum = Input
+//        Input = ""
+//        clickTimes_plus += 1
+//        }
+//        else if clickTimes_plus >= 1
+//       {
+//        function = "+"
+//        firstNum = String(result)
+//        Input = ""
+//
+//        }
     }
     @IBAction func btnEqual(_ sender: Any)
     {
