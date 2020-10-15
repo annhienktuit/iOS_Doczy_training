@@ -1,0 +1,18 @@
+# Uncomment this line to define a global platform for your project
+platform :ios, "9.0"
+
+use_frameworks!
+project 'NavSwift.xcodeproj'
+def shared_pods
+    pod 'Cache'
+end
+  
+target ‘NavSwift’ do
+    use_frameworks!
+    shared_pods
+
+        pod 'Kingfisher'
+        pod 'Alamofire'
+    
+end
+

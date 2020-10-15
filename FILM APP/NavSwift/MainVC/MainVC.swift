@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class MainVC: UIViewController {
 
@@ -17,9 +18,44 @@ class MainVC: UIViewController {
         self.view.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "background_main"))
         lblTitle.textColor = .brown
         self.navigationController?.isNavigationBarHidden = true
+        loadData()
         // Do any additional setup after loading the view.
     }
 
+    func loadData() {
+
+
+        let urlString = "https://api.themoviedb.org/3/movie/550?api_key=1d3a0c0e76db301e3aeccba715e259ce"
+
+        let url = URL(string: urlString)
+        URLSession.shared.dataTask(with:url!) { (data, response, error) in
+            if error != nil {
+                print(error!.localizedDescription)
+            } else {
+                do {
+
+                    let parsedData = try JSONSerialization.jsonObject(with: data!) as! [String : Any]
+                    
+//                    let parsedData = try JSONSerialization.jsonObject(with: data!) as! [[String : Any]]
+                    let film = Film()
+                    film.parserData(data: parsedData)
+                    
+                    debugPrint(parsedData)
+                    debugPrint("stop here")
+                    
+//                    for item in parsedData
+//                    {
+//                        let id = item["id"] as! String
+//                        print(id)
+//                    }
+
+                } catch let error as NSError {
+                    print(error.localizedDescription)
+                }
+            }
+
+            }.resume()
+    }
 
     /*
     // MARK: - Navigation
