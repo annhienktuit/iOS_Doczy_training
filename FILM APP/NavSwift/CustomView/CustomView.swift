@@ -84,16 +84,8 @@ class CustomView: UIView {
 
     extension CustomView: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+            actionClickOn?(film_array)
             let film = Film()
-            
-         /*   film.name = arrImage[indexPath.row].title
-            film.logo = arrImage[indexPath.row].image
-            film.overview = arrImage[indexPath.row].description
-            actionClickOn?(film_array)
-            //debugPrint((film_array[0].titleOriginal))
-            debugPrint(film_array[0].titleOriginal)
-            actionClicked?(film) */
-            actionClickOn?(film_array)
             film.titleOriginal = film_array[indexPath.row].titleOriginal
             film.logo = film_array[indexPath.row].logo
             film.overview = film_array[indexPath.row].overview
@@ -102,11 +94,8 @@ class CustomView: UIView {
         }
         func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
             actionClickOn?(film_array)
-            return film_array.count
+            return film_array.count 
         }
-        /*func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-           return UIEdgeInsets(top: 25, left: 15, bottom: 0, right: 5)
-        }*/
         
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
             return CGSize(width: collectionView.frame.width/3.7, height: collectionView.frame.width/2.3)
