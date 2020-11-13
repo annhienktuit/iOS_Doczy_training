@@ -10,7 +10,10 @@ import UIKit
 
 class SearchVC: UIViewController {
 
-    
+    let detailview = DetailVC(nibName: "DetailVC", bundle: nil)
+    @IBAction func btnclick(_ sender: Any) {
+        navigationController?.pushViewController(detailview, animated: true)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "background_search"))
@@ -22,6 +25,7 @@ class SearchVC: UIViewController {
         searchBar.barTintColor = UIColor.clear
         searchBar.backgroundColor = UIColor.clear
         self.tabBarController?.navigationItem.titleView = searchBar
+        
         // Do any additional setup after loading the view.
     
     }

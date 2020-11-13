@@ -5,7 +5,7 @@
 //  Created by Nguyen Huu An Nhien on 10/5/20.
 //  Copyright © 2020 Nguyen Huu An Nhien. All rights reserved.
 //
-/*
+
 import UIKit
 
 class FooterView: UIView {
@@ -50,4 +50,4 @@ class FooterView: UIView {
     
    
 }
-*/
+

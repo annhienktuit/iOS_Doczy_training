@@ -7,20 +7,31 @@
 //
 
 import UIKit
+import Alamofire
+
 
 struct Data {
     var title: String
     var image: UIImage
+    var description: String
+    }
     //@IBOutlet weak var lblMain: UILabel!
-}
+
+
 
 class CustomView: UIView {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet var contentView: UIView!
-    let arrImage:[Data] = [Data(title: "Film1", image: #imageLiteral(resourceName: "img2")),
-    Data(title: "Film2", image: #imageLiteral(resourceName: "img1")),
-    Data(title: "Film3", image: #imageLiteral(resourceName: "img3")),
-    Data(title: "Film4", image: #imageLiteral(resourceName: "img4"))]
+    var film_array = [Film]()
+    let arrImage:[Data] = [Data(title: "COCO part 1", image: #imageLiteral(resourceName: "img2"), description: "PHIM COCO 1"),
+    Data(title: "COCO part 2", image: #imageLiteral(resourceName: "img1"), description: "PHIM COCO2"),
+    Data(title: "Ròm", image: #imageLiteral(resourceName: "img3"), description: "PHIM ROM"),
+    Data(title: "Death on the Nile", image: #imageLiteral(resourceName: "img4"), description:  "PHIM DEATH ON THE NILE")]
+    var actionClickOn:(([Film])->())?
+    
+    var actionClicked:((Film)->())?
+    //
+    
     
     override init(frame: CGRect) {
             super.init(frame: frame)
@@ -43,8 +54,6 @@ class CustomView: UIView {
         }
         
         
-        
-    
         
         private func initCollectionView() {
             //let nib = UINib(nibName: "CollectionCustomCell", bundle: nil)
@@ -74,8 +83,26 @@ class CustomView: UIView {
     }
 
     extension CustomView: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+       func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+            let film = Film()
+            
+         /*   film.name = arrImage[indexPath.row].title
+            film.logo = arrImage[indexPath.row].image
+            film.overview = arrImage[indexPath.row].description
+            actionClickOn?(film_array)
+            //debugPrint((film_array[0].titleOriginal))
+            debugPrint(film_array[0].titleOriginal)
+            actionClicked?(film) */
+            actionClickOn?(film_array)
+            film.titleOriginal = film_array[indexPath.row].titleOriginal
+            film.logo = film_array[indexPath.row].logo
+            film.overview = film_array[indexPath.row].overview
+            actionClicked?(film)
+            
+        }
         func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            return 4
+            actionClickOn?(film_array)
+            return film_array.count
         }
         /*func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
            return UIEdgeInsets(top: 25, left: 15, bottom: 0, right: 5)
@@ -90,7 +117,9 @@ class CustomView: UIView {
                 fatalError("can't dequeue CustomCell")
             }
             //add shadow
-            cell.data = self.arrImage[indexPath.row]
+            actionClickOn?(film_array)
+            //cell.data = self.arrImage[0]
+            cell.data = self.film_array[indexPath.row]
             cell.layer.cornerRadius = collectionView.frame.height/2
             cell.layer.borderWidth = 0.0
             cell.layer.shadowColor = UIColor.black.cgColor
@@ -101,7 +130,7 @@ class CustomView: UIView {
             return cell
         }
         func numberOfSections(in collectionView: UICollectionView) -> Int {
-            return 5
+            return 1
         }
     /*
     // Only override draw() if you perform custom drawing.
@@ -112,10 +141,10 @@ class CustomView: UIView {
     */
 
         class CustomCell: UICollectionViewCell {
-            var data:Data? {
+            var data:Film? {
                 didSet {
                     guard let data =  data else {return}
-                    bg.image = data.image
+                    bg.image = data.logo
                 }
             }
             fileprivate let bg: UIImageView = {
