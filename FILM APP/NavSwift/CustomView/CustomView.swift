@@ -32,6 +32,10 @@ class CustomView: UIView {
     var actionClicked:((Film)->())?
     //
     
+    func updateData(films: [Film]) {
+        film_array = films
+        collectionView.reloadData()
+    }
     
     override init(frame: CGRect) {
             super.init(frame: frame)

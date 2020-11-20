@@ -34,7 +34,7 @@ class MainVC: UIViewController {
             debugPrint("Open new VC")
         }
         
-            view2.actionClicked = { film in
+        view2.actionClicked = { film in
             //actionClickOn?(film_array)
             let detailview = DetailVC(nibName: "DetailVC", bundle: nil)
             detailview.film = film
@@ -42,20 +42,34 @@ class MainVC: UIViewController {
             debugPrint("Open new VC")
         }
         
-            view1.actionClickOn = { film_array_closure in
-                var flag_array = [Film]()
-                for i in 0...film_array.count - 1  {
-                    flag_array.append(film_array[i])
-                }
-                self.view1.film_array = flag_array
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {[weak self] in
+            self?.view1.updateData(films: film_array)
+            self?.view2.updateData(films: film_array)
         }
-                view2.actionClickOn = { film_array_closure in
-                var flag_array = [Film]()
-                for i in 0...film_array.count - 1  {
-                    flag_array.append(film_array[i])
-                }
-                self.view2.film_array = flag_array
+        
+        // Không bên load data kiểu này. Đây chỉ dùng cho sự kiện truyền biến = clicked
+        /*
+        view1.actionClickOn = { film_array_closure in
+            var flag_array = [Film]()
+            for child in film_array {
+                flag_array.append(child)
+            }
+//            for i in 0...film_array.count - 1  {
+//                flag_array.append(film_array[i])
+//            }
+            self.view1.film_array = flag_array
         }
+        view2.actionClickOn = { film_array_closure in
+            var flag_array = [Film]()
+            for child in film_array {
+                flag_array.append(child)
+            }
+//            for i in 0...film_array.count - 1  {
+//                flag_array.append(film_array[i])
+//            }
+            self.view2.film_array = flag_array
+        }
+ */
     }
     
 }
@@ -63,6 +77,9 @@ class MainVC: UIViewController {
 
 
   //85->118
+// Hàm này code không phải dùng vòng for để đi từng request, mà em phải kiếm cái api trả về 1 list các bộ phim chứ đây là api trả về chi tiết của 1 bộ phim.
+// sau khi load đc list về rồi thì mới đưa sang customview để show data lên theo từng list
+// Hàm này load 1 cái chỉ đc gọi khi click vào 1 bộ phim để đến detail của nó.
 func loadData_Array(startId: Int, endId: Int) {
         for i in startId...endId {
             let urlString = "https://api.themoviedb.org/3/movie/" + String(i) + "?api_key=1d3a0c0e76db301e3aeccba715e259ce"
